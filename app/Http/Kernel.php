@@ -2,10 +2,14 @@
 
 namespace App\Http;
 
+use App\Application;
+
 class Kernel
 {
-    public function __construct()
+    public function __construct(protected Application $app) {}
+
+    public function handle()
     {
-        echo 'i am http kernel';
+        $this->app->boot();
     }
 }
