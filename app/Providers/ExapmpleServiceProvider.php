@@ -27,6 +27,6 @@ class ExapmpleServiceProvider
 
     public function boot()
     {
-        echo "boot from serviceProvider 1";
+        // echo "boot from serviceProvider 1";
     }
 }
