@@ -12,7 +12,7 @@ class Router
     {
         $this->routes = [
             'GET' => [
-                '/' => ['uses' => fn() => 'response']
+                '/' => ['uses' =>  'HomeController@index']
             ]
         ];
     }
@@ -23,8 +23,9 @@ class Router
         $uri = $request->uri();
 
         if (isset($this->routes[$method][$uri])) {
-            $action = $this->routes[$method][$uri]['uses'];
-            return (new Response($action($request)));
+            [$controller, $function] = explode('@', $this->routes[$method][$uri]['uses']);
+            $controller = "App\\Http\\Controllers\\{$controller}";
+            return ((new $controller)->$function($request));
         }
 
         return (new Response('404 Not Found', status: 404));
